@@ -16,11 +16,11 @@ public class animaçãoPlayer : MonoBehaviour
     {
         float velocidadeX = Mathf.Abs(this.rigidbody.velocity.x);
         if (velocidadeX > 0) {
-            this.animator.SetBool("correndo", true);
+            this.animator.SetBool("Andando", true);
         }
         else
         {
-            this.animator.SetBool("correndo", false);
+            this.animator.SetBool("Andando", false);
         }
     }
 }
