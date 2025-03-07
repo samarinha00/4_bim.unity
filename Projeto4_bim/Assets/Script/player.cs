@@ -8,16 +8,19 @@ public class Player : MonoBehaviour
   public float focaPulo = 10f;
 
     public bool noChao = false;
-  
+
+    public bool andando = false;
 
   private Rigidbody2D _rigidbody2D;
-  private SpriteRenderer  spriteRenderer; 
+  private SpriteRenderer  _spriteRenderer;
+  private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _animator = gameObject.GetComponent<Animator>();
     }
 
 
@@ -40,12 +43,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        andando = false;
+        
       if(Input.GetKey(KeyCode.LeftArrow))
       {
         gameObject.transform.position += new Vector3(-velocidade*Time.deltaTime,0,0);
         //rigidbody2D.AddForce(new Vector2(-velocidade,0));
-        spriteRenderer.flipX = true;
+        _spriteRenderer.flipX = true;
         Debug.Log("LeftArrow");
+
+        if (noChao == true)
+        {
+            andando = true;
+        }
       }
         
 
@@ -53,8 +63,13 @@ public class Player : MonoBehaviour
       {
         gameObject.transform.position += new Vector3(velocidade*Time.deltaTime,0,0);
         //rigidbody2D.AddForce(new Vector2(velocidade,0));
-         spriteRenderer.flipX = false;
+         _spriteRenderer.flipX = false;
          Debug.Log("RightArrow");
+         
+         if (noChao == true)
+         {
+             andando = true;
+         }
       }
 
         if (Input.GetKeyDown(KeyCode.Space) && noChao == true)
@@ -64,8 +79,8 @@ public class Player : MonoBehaviour
             Debug.Log("Jump");
         }
 
+        _animator.SetBool("Andando",andando);
+        
      
-
-
     }
 }
