@@ -13,7 +13,7 @@ public class animaçãoPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.player.noChao)
+        if (this.player.noChao) //está no chão
         {
             float velocidadeX = Mathf.Abs(this.rigidbody.velocity.x);
             if (velocidadeX > 0)
@@ -24,18 +24,20 @@ public class animaçãoPlayer : MonoBehaviour
             {
                 this.animator.SetBool("Andando", false);
             }
+            this.animator.SetBool("Jump", false);
+            this.animator.SetBool("Fall", false);
         }
-        else
+        else //não está no chão
         {
             float velocidadeY = this.rigidbody.velocity.y;
-            if (velocidadeY > 0)
+            if (velocidadeY > 0) //Subindo / Pulando
             {
-                //Subindo e Pulando
                 this.animator.SetBool("Jump", true);
+                this.animator.SetBool("Fall", false);
             }
-            else
-            {
+            else if (velocidadeY < 0) { //Caindo
                 this.animator.SetBool("Jump", false);
+                this.animator.SetBool("Fall", true);
             }
         }
     }
